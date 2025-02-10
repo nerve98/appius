@@ -4,9 +4,10 @@ import Attività from "./attività";
 
 interface CardProps {
     titolo: string;
+    onAdd: () => void;
 }
 
-export default function Card({ titolo }: CardProps) {
+export default function Card({ titolo, onAdd }: CardProps) {
     return (
         <div
             className="flex flex-col justify-center items-center min-h-[50vh]"
@@ -25,7 +26,7 @@ export default function Card({ titolo }: CardProps) {
                         </p>
                         <Attività titolo="Sviluppo" stato="Pending" stima={2} ></Attività>
                         <Attività titolo="Test" stato="Eseguito" stima={4} ></Attività>
-                        <button className="w-full mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200 ease-in-out focus:outline-none">
+                        <button onClick={onAdd} className="w-full mt-4 px-4 py-2 border border-gray-900 rounded-lg hover:bg-gray-800 hover:text-white transition duration-200 ease-in-out focus:outline-none">
                             Aggiungi
                         </button>
                         
