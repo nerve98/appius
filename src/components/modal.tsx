@@ -27,6 +27,8 @@ const Modal = ({ isOpen, onClose }: ModalProps) => {
                         </div>
                         <label className="block text-sm font-medium text-gray-700">Titolo</label>
                         <input required type="text" className="w-full rounded-lg border border-gray-300 py-2.5 px-4 mt-1 mb-4 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+                        <label className="block text-sm font-medium text-gray-700">Descrizione</label>
+                        <textarea className="w-full rounded-lg border border-gray-300 py-2.5 px-4 mt-1 mb-4 text-sm focus:outline-none focus:ring focus:ring-gray-300"></textarea>
                         <label className="block text-sm font-medium text-gray-700">Stato</label>
                         <select defaultValue="todo" className="w-full rounded-lg border border-gray-300 py-2.5 px-4 mt-1 mb-4 text-sm focus:outline-none focus:ring focus:ring-gray-300">
                             <option value="pending">In corso</option>
