@@ -18,11 +18,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const formData = await request.formData()
-    const titolo = formData.get('titolo')?.toString().trim();
-    const descrizione = formData.get('descrizione')?.toString().trim();
-    const stima = formData.get('stima')?.toString();
-    const stato = formData.get('stato')?.toString();
+    const res = await request.json();
+    const titolo = res.titolo;
+    const descrizione = res.descrizione === undefined ? '' : res.descrizione;
+    const stima = res.stima;
+    const stato = res.stato;
 
     if (titolo !== undefined && titolo !== '' && descrizione !== undefined && stato !== undefined && stima !== undefined && STATO_VALUES.includes(stato) && isPositiveInteger(stima)) {
         const query = "INSERT INTO tasks(titolo, descrizione, stato, stima) VALUES($1, $2, $3, $4)";

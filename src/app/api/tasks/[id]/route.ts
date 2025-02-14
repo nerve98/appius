@@ -75,11 +75,11 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;
     if (isPositiveInteger(id.toString())) {
-        const formData = await request.formData()
-        const titolo = formData.get('titolo')?.toString().trim();
-        const descrizione = formData.get('descrizione')?.toString().trim();
-        const stima = formData.get('stima')?.toString();
-        const stato = formData.get('stato')?.toString();
+        const res = await request.json();
+        const titolo = res.titolo;
+        const descrizione = res.descrizione === undefined ? '' : res.descrizione;
+        const stima = res.stima;
+        const stato = res.stato;
 
         if (titolo !== undefined && titolo !== '' && descrizione !== undefined && stato !== undefined && stima !== undefined && STATO_VALUES.includes(stato) && isPositiveInteger(stima)) {
             const query_check = "SELECT * FROM tasks WHERE id = $1";

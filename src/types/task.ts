@@ -1,9 +1,9 @@
-type Stati="todo"|"pending"|"done";
+type Stati = "todo" | "pending" | "done";
 
-type Task={
-    id:number;
-    titolo:string;
-    descrizione:string;
-    stato:Stati;
-    stima:number;
+type Task = {
+    id: number;
+    titolo: string;
+    descrizione: string;
+    stato: Stati;
+    stima: number;
 }
