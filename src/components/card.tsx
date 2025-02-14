@@ -23,7 +23,7 @@ export default function Card({ refresh, titolo, data, onAdd }: CardProps) {
                         className="bg-violet-700 rounded-lg bg-card text-card-foreground shadow-sm mb-5 max-w-full pt-8 pb-6 px-6"
                     >
                         <p
-                            className="mb-8 text-xl font-extrabold text-black md:text-3xl"
+                            className="mb-8 text-2xl font-extrabold text-black md:text-3xl"
                         >
                             {titolo}
                         </p>

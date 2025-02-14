@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import Loading from "@/components/loading";
-import { useRouter } from 'next/navigation'
+import { useRouter, notFound } from 'next/navigation'
 
 export default function TaskPage() {
     const params = useParams<{ id: string }>()
@@ -21,11 +21,16 @@ export default function TaskPage() {
         fetch(`/api/tasks/${params.id}`)
             .then(response => response.json())
             .then(tasks => {
-                setTitolo(tasks[0].titolo);
-                setDescrizione(tasks[0].descrizione);
-                setStato(tasks[0].stato);
-                setStima(tasks[0].stima.toString());
-                setIsLoading(false);
+                if (tasks.status == 404) {
+                    router.back();
+                }
+                else {
+                    setTitolo(tasks[0].titolo);
+                    setDescrizione(tasks[0].descrizione);
+                    setStato(tasks[0].stato);
+                    setStima(tasks[0].stima.toString());
+                    setIsLoading(false);
+                }
             });
     }, []);
 
@@ -102,8 +107,8 @@ export default function TaskPage() {
                         <label className="block text-base font-normal text-zinc-200 md:text-lg mb-2">Stima</label>
                         <input onChange={e => setStima(e.target.value)} value={stima} name="stima" type="number" className="text-zinc-300 bg-gray-600 w-full rounded-lg py-2.5 px-4 mt-1 mb-4 text-base focus:outline-none focus:ring focus:ring-gray-600" />
                         <span>
-                            <button onClick={updateTask} className="align-top w-96 rounded-lg bg-gray-900 py-2.5 text-sm font-medium text-zinc-200 transition duration-300 hover:bg-gray-950">Modifica</button>
-                            <button onClick={deleteTask} className="items-end align-top w-32 h-10 ml-4 rounded-lg bg-red-500 text-white px-2 hover:bg-red-600 transition duration-200 ease-in-out focus:outline-none">
+                            <button onClick={updateTask} className="align-top md:w-96 w-32 rounded-lg bg-gray-900 py-2.5 text-base font-medium text-zinc-200 transition duration-300 hover:bg-gray-950">Modifica</button>
+                            <button onClick={deleteTask} className="items-end align-top w-32 h-11 ml-4 rounded-lg bg-red-500 py-2.5 text-white px-2 hover:bg-red-600 transition duration-200 ease-in-out focus:outline-none">
                                 <span className="flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
