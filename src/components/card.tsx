@@ -4,32 +4,42 @@ import Attività from "./attività";
 
 interface CardProps {
     titolo: string;
+    data: Task[];
     onAdd: () => void;
 }
 
-export default function Card({ titolo, onAdd }: CardProps) {
+interface ICard{
+    titolo: string;
+    data: Task[];
+}
+
+export default function Card({ titolo, data, onAdd }: CardProps) {
+
     return (
         <div
-            className="flex flex-col justify-center items-center min-h-[50vh]"
+            className="flex flex-col items-center min-h-max"
         >
             <div
-                className="mx-auto flex w-full pt-10 flex-col justify-center px-5 pt-0 md:h-[unset] max-w-[400px] lg:px-6 xl:pl-0"
+                className="h-full mx-auto flex w-full pt-10 flex-col justify-center px-5 pt-0 max-w-[400px] lg:px-6 xl:pl-0"
             >
-                <div className="relative flex w-full flex-col pt-[20px] md:pt-0 ">
+                <div className="h-full relative flex w-full flex-col pt-[20px] md:pt-0 ">
                     <div
-                        className="bg-white rounded-lg border bg-card text-card-foreground shadow-sm mb-5 h-min max-w-full pt-8 pb-6 px-6 dark:border-zinc-800"
+                        className="h-full bg-violet-700 rounded-lg bg-card text-card-foreground shadow-sm mb-5 max-w-full pt-8 pb-6 px-6"
                     >
                         <p
-                            className="mb-8 text-xl font-extrabold text-zinc-950 dark:text-white md:text-3xl"
+                            className="mb-8 text-xl font-extrabold text-black md:text-3xl"
                         >
                             {titolo}
                         </p>
-                        <Attività titolo="Sviluppo" stato="Pending" stima={2} ></Attività>
-                        <Attività titolo="Test" stato="Eseguito" stima={4} ></Attività>
-                        <button onClick={onAdd} className="w-full mt-4 px-4 py-2 border border-gray-900 rounded-lg hover:bg-gray-800 hover:text-white transition duration-200 ease-in-out focus:outline-none">
+                        {
+                            data.map((task: Task) => (
+                                <Attività key={task.id} titolo={task.titolo} stato={task.stato} stima={task.stima} id={task.id}/>
+                            ))
+                        }
+                        <button onClick={onAdd} className="w-full mt-4 px-4 py-2 text-gray-100 bg-gray-900 rounded-lg hover:bg-gray-800 hover:text-gray-100 transition duration-200 ease-in-out focus:outline-none">
                             Aggiungi
                         </button>
-                        
+
                     </div>
                 </div>
             </div>
